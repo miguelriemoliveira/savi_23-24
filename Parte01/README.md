@@ -2,7 +2,7 @@ Parte 1 - SAVI
 
 Miguel Riem Oliveira <mriem@ua.pt>
 
-#Sumário
+# Sumário
 
  - Introdução
  - Apresentação
@@ -12,14 +12,14 @@ Miguel Riem Oliveira <mriem@ua.pt>
  - Editores e IDEs
  - Tutoriais de OpenCV
 
-#Pressupostos para a realização dos exercícios
+# Pressupostos para a realização dos exercícios
 - Ter o Linux instalado (ubuntu 20.04 *altamente recomendado*).
 - Instalação do Linux em modo dual boot (*altamente recomendado*, mas também se pode usar máquina virtual).
 - Ter o acesso de rede configurado (_wireless_).
 *   Consultar as instruções do site dos 
 http://www.ua.pt/stic/PageText.aspx?id=15224[sTIC].
 
-#Instalação do Ubuntu
+# Instalação do Ubuntu
 
 Existem diversas formas de usar o Ubuntu para quem tem outros sistemas
 operativos (Windows, MacOS). As mais interessantes são:
@@ -39,17 +39,17 @@ Mais informações podem ser obtidas por exemplo nos seguintes endereços:
   * https://tutorials.ubuntu.com/
   * https://tutorials.ubuntu.com/tutorial/tutorial-install-ubuntu-desktop
 
-#Apresentação da UC
+# Apresentação da UC
 
 Ver slides de apresentação da UC.
 
-#Introdução ao Linux e a Shell
+# Introdução ao Linux e a Shell
 
 Ver o documento  `1-Linux-Breve Introdução`.
 
-#Criação do ambiente e instalação de ferramentas básicas
+# Criação do ambiente e instalação de ferramentas básicas
 
-##Metodologia
+## Metodologia
 
 Para melhor se desenvolver o trabalho nas aulas, deve-se
 seguir uma metodologia de organização de ficheiros em diretórios
@@ -63,7 +63,7 @@ https://github.com/miguelriemoliveira/savi_22-23
 
 Recomenda-se que, sempre que possível, usem a versão online ou façam o update frequentemente.
 
-##Editor
+## Editor
 
 A ferramenta principal para criar e modificar ficheiros é o editor, muitas
 vezes integrado num ambiente de desenvolvimento (IDE). Há inúmeras opções
@@ -85,7 +85,7 @@ contraproducente em utilizadores iniciados.
 
 **Recomenda-se como IDE** o https://code.visualstudio.com/[vscode], que é gratuito.
 
-##OpenCV
+## OpenCV
 
 O https://opencv.org/[OpenCV] é a biblioteca de referência para processamento de imagem e visão por computador. É open source e gratuita. 
 
@@ -96,9 +96,9 @@ Para instalar o OpenCV:
 https://docs.opencv.org/4.x/d2/de6/tutorial_py_setup_in_ubuntu.html
 
 
-#Exercícios 
+# Exercícios 
 
-##Exercício 1 - Tutoriais do OpenCV
+## Exercício 1 - Tutoriais do OpenCV
 
 O OpenCV tem vários tutorials que são uma ajuda valiosa para começar.
 
