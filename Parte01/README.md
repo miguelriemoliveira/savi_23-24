@@ -59,7 +59,7 @@ Dentro de cada aula, em especial nas primeiras, é também recomendado criar uma
 
 Os guiões para as aulas estarão a ser continuamente atualizados em:
 
-https://github.com/miguelriemoliveira/savi_22-23
+https://github.com/miguelriemoliveira/savi_23-24
 
 Recomenda-se que, sempre que possível, usem a versão online ou façam o update frequentemente.
 
@@ -104,7 +104,7 @@ O OpenCV tem vários tutorials que são uma ajuda valiosa para começar.
 
 https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html
 
-Faça os exercícios dos quatro primeiros tutoriais:
+Faça os exercícios dos cinco primeiros tutoriais:
 
  - Introduction to OpenCV
  - Learn how to setup OpenCV-Python on your computer!
