@@ -5,9 +5,11 @@
 import copy
 import csv
 import time
+from random import randint
 
 import cv2
 import numpy as np
+from matplotlib import cm
 from track import Track
 from colorama import Fore, Back, Style
 
@@ -26,6 +28,10 @@ def main():
     video_frame_number = 0
     tracks = {}
 
+    # assume that I will have no more than 160 person ids
+    colormap = cm.hsv(np.linspace(0, 1, 160))
+
+
     # --------------------------------------
     # Execution
     # --------------------------------------
@@ -39,6 +45,7 @@ def main():
         height, width, _ = image_rgb.shape
         image_gui = copy.deepcopy(image_rgb) # good practice to have a gui image for drawing
 
+    
         # Process ground truth
         gt_tracks = csv.reader(open(file))
         for row_idx, gt_track in enumerate(gt_tracks): # iterate file rows
@@ -70,12 +77,14 @@ def main():
 
                 else: # create new track and add to dictionary
                     print(Fore.BLUE + 'Person ' + str(person_number) + ' not tracked. Creating new!' + Style.RESET_ALL)
-                    track = Track(person_number, body_left, body_right, body_top, body_bottom)
+                    color = list(colormap[person_number, 0:3]*255)
+                    # TODO list comprehensions here also
+                    color = (randint(0, 255), randint(0, 255), randint(0, 255))
+                    track = Track(person_number, body_left, body_right, body_top, body_bottom, color=color)
                     tracks[person_number] = track
                     track.draw(image_gui)
 
         print(tracks)
-
                
         # --------------------------------------
         # Visualization
@@ -84,7 +93,7 @@ def main():
         cv2.resizeWindow('GUI', int(width/2), int(height/2))
         cv2.imshow('GUI',image_gui)
             
-        if cv2.waitKey(0) & 0xFF == ord('q') :
+        if cv2.waitKey(25) & 0xFF == ord('q') :
             break
 
         video_frame_number += 1
