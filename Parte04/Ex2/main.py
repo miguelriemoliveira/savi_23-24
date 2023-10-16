@@ -9,7 +9,6 @@ from random import randint
 
 import cv2
 import numpy as np
-from matplotlib import cm
 from track import Track
 from colorama import Fore, Back, Style
 
@@ -27,10 +26,6 @@ def main():
 
     video_frame_number = 0
     tracks = {}
-
-    # assume that I will have no more than 160 person ids
-    colormap = cm.hsv(np.linspace(0, 1, 160))
-
 
     # --------------------------------------
     # Execution
@@ -77,8 +72,6 @@ def main():
 
                 else: # create new track and add to dictionary
                     print(Fore.BLUE + 'Person ' + str(person_number) + ' not tracked. Creating new!' + Style.RESET_ALL)
-                    color = list(colormap[person_number, 0:3]*255)
-                    # TODO list comprehensions here also
                     color = (randint(0, 255), randint(0, 255), randint(0, 255))
                     track = Track(person_number, body_left, body_right, body_top, body_bottom, color=color)
                     tracks[person_number] = track
