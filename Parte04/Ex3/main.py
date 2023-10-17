@@ -9,7 +9,7 @@ from random import randint
 
 import cv2
 import numpy as np
-from track import Track
+from track import Detection, Track
 from colorama import Fore, Back, Style
 
 
@@ -23,9 +23,13 @@ def main():
     file ='../docs/OxfordTownCentre/TownCentre-groundtruth.top'
     gt_tracks = csv.reader(open(file))
 
+    # Create person detector
+    detector_filename = './fullbody2.xml' 
+    detector = cv2.CascadeClassifier(detector_filename)
 
     video_frame_number = 0
     tracks = {}
+    person_count = 0
 
     # --------------------------------------
     # Execution
@@ -41,47 +45,45 @@ def main():
         image_gui = copy.deepcopy(image_rgb) # good practice to have a gui image for drawing
 
     
-        # Process ground truth
-        gt_tracks = csv.reader(open(file))
-        for row_idx, gt_track in enumerate(gt_tracks): # iterate file rows
+        # ------------------------------------------------------
+        # Detect persons using haar cascade classifier
+        # ------------------------------------------------------
+        image_gray = cv2.cvtColor(image_rgb, cv2.COLOR_BGR2GRAY)
+        haar_detections = detector.detectMultiScale(image_gray, scaleFactor=1.2, minNeighbors=4,
+                                            minSize=(20, 40), flags=cv2.CASCADE_SCALE_IMAGE)
 
-            if not len(gt_track) == 12: # something wrong with this track, so don't use it
-                continue
+        # ------------------------------------------------------
+        # Create list of detections
+        # ------------------------------------------------------
+        detections = []
+        detection_idx = 0
+        for x,y,w,h in haar_detections:
+            detection_id = str(video_frame_number) + '_' +  str(detection_idx)
+            detection = Detection(x, x+w, y, y+h, detection_id)
+            detections.append(detection)
+            detection_idx += 1
 
-            person_number, file_frame_number, head_valid, body_valid, head_left, head_top, head_right, head_bottom, body_left, body_top, body_right, body_bottom = gt_track
-            file_frame_number = int(file_frame_number)
+        # TODO How to handle when detection is from a person already being tracked?
 
-            # print('row idx ' + str(row_idx) + ' has information ' + str(gt_track))
-            # TODO compact this with Bruno's list comprehension
-            person_number = int(float(person_number))
-            body_left = int(float(body_left))
-            body_right = int(float(body_right))
-            body_top = int(float(body_top))
-            body_bottom = int(float(body_bottom))
+        # --------------------------------------
+        # Create new trackers
+        # --------------------------------------
+        for detection in detections:
+            track = Track('T' + str(person_count), body_left, body_right, body_top, body_bottom, color=color)
+            person_count += 1
 
-            if video_frame_number == file_frame_number:
-                # print('row idx ' + str(row_idx) + ' has information ' + str(gt_track))
-                if body_valid == False: # cannot draw invalid body
-                    continue
 
-                print('testing if person ' + str(person_number) + ' is in tracks'  + str(list(tracks.keys())))
-                if person_number in tracks: # run update of existing track
-                    print(Fore.YELLOW + 'Person ' + str(person_number) + ' already being tracked. Updating!'+ Style.RESET_ALL)
-                    tracks[person_number].update(body_left, body_right, body_top, body_bottom)
-                    tracks[person_number].draw(image_gui)
-
-                else: # create new track and add to dictionary
-                    print(Fore.BLUE + 'Person ' + str(person_number) + ' not tracked. Creating new!' + Style.RESET_ALL)
-                    color = (randint(0, 255), randint(0, 255), randint(0, 255))
-                    track = Track(person_number, body_left, body_right, body_top, body_bottom, color=color)
-                    tracks[person_number] = track
-                    track.draw(image_gui)
-
-        print(tracks)
                
         # --------------------------------------
         # Visualization
         # --------------------------------------
+
+        # Draw list of detections
+        for detection in detections:
+            detection.draw(image_gui, (255,0,0))
+
+
+
         cv2.namedWindow('GUI',cv2.WINDOW_NORMAL)
         cv2.resizeWindow('GUI', int(width/2), int(height/2))
         cv2.imshow('GUI',image_gui)

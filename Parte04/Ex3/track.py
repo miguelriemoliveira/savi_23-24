@@ -23,7 +23,7 @@ class Detection():
         end_point = (self.right, self.bottom)
         cv2.rectangle(image, start_point, end_point, color, 3)
 
-        cv2.putText(image, self.id, (self.left, self.top-10), cv2.FONT_HERSHEY_SIMPLEX, 1, color, 2, cv2.LINE_AA)
+        cv2.putText(image, 'Det ' + self.id, (self.left, self.top-10), cv2.FONT_HERSHEY_SIMPLEX, 1, color, 2, cv2.LINE_AA)
 
     def getLowerMiddlePoint(self):
         return (self.left + int((self.right - self.left)/2) , self.bottom)
