@@ -16,14 +16,22 @@ class Detection():
         self.right = right
         self.top = top
         self.bottom = bottom
-        self.id = id
+        self.detector_id = id
 
-    def draw(self, image, color):
+    def draw(self, image, color, draw_position='bottom', text=None):
         start_point = (self.left, self.top)
         end_point = (self.right, self.bottom)
         cv2.rectangle(image, start_point, end_point, color, 3)
 
-        cv2.putText(image, 'Det ' + self.id, (self.left, self.top-10), cv2.FONT_HERSHEY_SIMPLEX, 1, color, 2, cv2.LINE_AA)
+        if text is None:
+            text = 'Det ' + self.detector_id
+
+        if draw_position == 'bottom':
+            position = (self.left, self.bottom + 30)
+        else:
+            position = (self.left, self.top-10)
+
+        cv2.putText(image, text, position, cv2.FONT_HERSHEY_SIMPLEX, 1, color, 2, cv2.LINE_AA)
 
     def getLowerMiddlePoint(self):
         return (self.left + int((self.right - self.left)/2) , self.bottom)
@@ -32,17 +40,17 @@ class Detection():
 class Track():
 
     # Class constructor
-    def __init__(self, id, left, right, top, bottom, color=(255, 0, 0)):
-        self.id = id
+    def __init__(self, id, detection,  color=(255, 0, 0)):
+        self.tracker_id = id
         self.color = color
-        self.detections = [Detection(left, right, top, bottom)]
+        self.detections = [detection]
 
-        print('Starting constructor for track id ' + str(self.id))
+        print('Starting constructor for track id ' + str(self.tracker_id))
 
     def draw(self, image):
 
         #Draw only last detection
-        self.detections[-1].draw(image, self.color, self.id)
+        self.detections[-1].draw(image, self.color, text=self.tracker_id, draw_position='top')
 
         for detection_a, detection_b in zip(self.detections[0:-1], self.detections[1:]):
             start_point = detection_a.getLowerMiddlePoint()

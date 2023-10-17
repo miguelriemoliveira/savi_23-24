@@ -28,9 +28,8 @@ def main():
     detector = cv2.CascadeClassifier(detector_filename)
 
     video_frame_number = 0
-    tracks = {}
     person_count = 0
-
+    tracks = []
     # --------------------------------------
     # Execution
     # --------------------------------------
@@ -69,7 +68,9 @@ def main():
         # Create new trackers
         # --------------------------------------
         for detection in detections:
-            track = Track('T' + str(person_count), body_left, body_right, body_top, body_bottom, color=color)
+            color = (randint(0, 255), randint(0, 255), randint(0, 255))
+            track = Track('T' + str(person_count), detection, color=color)
+            tracks.append(track)
             person_count += 1
 
 
@@ -82,13 +83,17 @@ def main():
         for detection in detections:
             detection.draw(image_gui, (255,0,0))
 
+        # Draw list of tracks
+        for track in tracks:
+            track.draw(image_gui)
+
 
 
         cv2.namedWindow('GUI',cv2.WINDOW_NORMAL)
         cv2.resizeWindow('GUI', int(width/2), int(height/2))
         cv2.imshow('GUI',image_gui)
             
-        if cv2.waitKey(25) & 0xFF == ord('q') :
+        if cv2.waitKey(0) & 0xFF == ord('q') :
             break
 
         video_frame_number += 1
