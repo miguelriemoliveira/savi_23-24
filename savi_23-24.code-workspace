@@ -7,5 +7,10 @@
 			"path": "../savi_solutions"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"cSpell.words": [
+			"resulta",
+			"resultado"
+		]
+	}
 }
