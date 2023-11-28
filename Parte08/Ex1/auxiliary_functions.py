@@ -94,3 +94,4 @@ def objectiveFunction(params, data):
     cv2.waitKey(25)
 
     return [similarity_error, reference_error_q, reference_error_t]
+    # return similarity_error
