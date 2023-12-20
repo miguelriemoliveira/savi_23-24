@@ -62,7 +62,7 @@ A ideia é utilizar um sintetizador de discurso para que o sistema consiga descr
 ### Objetivo 5 - Métricas de performance
 
 Todos os algoritmos desenvolvidos deverão ser testados a apresentadas métricas de performance.
-Em particular, para os detetores de objetos devem ser apresentadas métricas de [Precision, Recall e F1 Score](https://www.askpython.com/python/examples/precision-and-recall-in-python).
+Em particular, para os detetores de objetos devem ser apresentadas métricas de [Precision, Recall e F1 Score](https://www.askpython.com/python/examples/precision-and-recall-in-python). Para problemas de classificação multi-class recomenda-se [este link](https://www.evidentlyai.com/classification-metrics/multi-class-metrics)
 
 ### Objetivo 6 - Sistema em tempo real
 
